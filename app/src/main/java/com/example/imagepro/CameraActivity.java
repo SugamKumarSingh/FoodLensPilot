@@ -1,11 +1,13 @@
 package com.example.imagepro;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -132,4 +134,23 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         return out;
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(CameraActivity.this).setTitle("Exit...?").setMessage("Are you sure you want to exit").setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                exitApp();
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // close dialog
+            }
+        }).show();
+    }
+
+    private void exitApp() {
+        finishActivity(1);
+        System.exit(0);
+    }
 }
